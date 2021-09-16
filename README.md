@@ -1,5 +1,5 @@
 # recipe-database
-A small project demonstrating Spring-Boot with security
+A small project demonstrating some aspects of Spring-Boot
 
 ### Purpose
 This project can be used as a reference to some basic Spring-Boot functions:
