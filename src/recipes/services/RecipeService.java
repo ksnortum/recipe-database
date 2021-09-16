@@ -1,6 +1,7 @@
 package recipes.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import recipes.businesslayer.Recipe;
 import recipes.persistance.RecipeRepository;
@@ -19,6 +20,9 @@ public class RecipeService {
     }
 
     public Recipe save(Recipe recipe) {
+        String authorizedName = SecurityContextHolder.getContext().getAuthentication().getName();
+        recipe.setCreator(authorizedName);
+
         return repository.save(recipe);
     }
 

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import recipes.businesslayer.Account;
@@ -33,19 +32,13 @@ public class RecipeController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
-        String encodedPassword = new BCryptPasswordEncoder().encode(account.getPassword());
-        account.setPassword(encodedPassword);
         accountService.save(account);
-
         return ResponseEntity.ok().build() ;
     }
 
     @PostMapping("recipe/new")
     public ResponseEntity<Map<String, Long>> saveRecipe(@Valid @RequestBody Recipe recipe) {
-        String authorizedName = SecurityContextHolder.getContext().getAuthentication().getName();
-        recipe.setCreator(authorizedName);
         Recipe returnRecipe = recipeService.save(recipe);
-        
         return ResponseEntity.ok(Map.of("id", returnRecipe.getId()));
     }
 
