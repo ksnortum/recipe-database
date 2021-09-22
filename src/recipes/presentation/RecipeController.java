@@ -33,7 +33,7 @@ public class RecipeController {
         }
 
         accountService.save(account);
-        return ResponseEntity.ok().build() ;
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("recipe/new")
